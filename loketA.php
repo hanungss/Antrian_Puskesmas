@@ -2,23 +2,7 @@
 <html>
 <head>
 <title>Loket A</title>
-<style>
 
-.reset{
-background:red;
-color:white;
-border:none;
-font-size:22px;
-padding:15px 35px;
-margin:20px;
-cursor:pointer;
-}
-
-.reset:hover{
-background:#cc0000;
-}
-
-</style>
 </head>
 <body>
 
