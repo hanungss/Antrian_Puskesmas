@@ -10,7 +10,9 @@
 <h2 id="nomor">0</h2>
 
 <button onclick="next()">Panggil Berikutnya</button>
+<button onclick="before()">Panggil Sebelumnyanya</button>
 <button onclick="ulang()">Panggil Ulang</button>
+<button class="reset" onclick="reset()">RESET ANTRIAN</button>
 
 <script>
 
@@ -30,9 +32,25 @@ fetch("api.php?action=next&loket=B")
 
 }
 
+function before(){
+
+fetch("api.php?action=before&loket=A")
+
+}
+
 function ulang(){
 
 fetch("api.php?action=repeat")
+
+}
+
+function reset(){
+
+if(confirm("Reset semua antrian?")){
+
+fetch("api.php?action=reset")
+
+}
 
 }
 

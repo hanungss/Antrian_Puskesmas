@@ -27,11 +27,42 @@ if($action == "next"){
     exit;
 }
 
-if($action == "repeat"){
+if($action == "before"){
+
+    $loket = $_GET['loket'];
+
+    $nomor = (int)$nomor - 1;
+
+    file_put_contents($file,$nomor."|".$loket);
 
     echo json_encode([
         "nomor"=>$nomor,
         "loket"=>$loket
+    ]);
+
+    exit;
+}
+
+if($action == "repeat"){
+
+    $loket = $_GET['loket'];
+
+    echo json_encode([
+        "nomor"=>$nomor,
+        "loket"=>$loket
+    ]);
+
+    exit;
+}
+
+if($action == "reset"){
+
+    file_put_contents($file,"0|0|-");
+
+    echo json_encode([
+        "loketA"=>0,
+        "loketB"=>0,
+        "last"=>"-"
     ]);
 
     exit;
