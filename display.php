@@ -1,3 +1,6 @@
+<?php
+$nilai = 0;
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,10 +17,12 @@ color:white;
 
 .nomor{
 font-size:200px;
+font-weight:bold;
 }
 
 .loket{
 font-size:80px;
+margin-top:20px;
 }
 
 </style>
@@ -33,8 +38,8 @@ font-size:80px;
 
 <script>
 
-let lastNomor=0
-let lastLoket=""
+let lastNomor = 0
+let lastLoket = ""
 
 function load(){
 
@@ -42,15 +47,15 @@ fetch("api.php")
 .then(r=>r.json())
 .then(d=>{
 
-document.getElementById("nomor").innerText=d.nomor
-document.getElementById("loket").innerText="Loket "+d.loket
+document.getElementById("nomor").innerText = d.nomor
+document.getElementById("loket").innerText = "Loket " + d.loket
 
-if(d.nomor!=lastNomor || d.loket!=lastLoket){
+if(d.nomor != lastNomor || d.loket != lastLoket){
 
-playAudio(d.nomor,d.loket)
+playAntrian(d.nomor)
 
-lastNomor=d.nomor
-lastLoket=d.loket
+lastNomor = d.nomor
+lastLoket = d.loket
 
 }
 
@@ -58,37 +63,131 @@ lastLoket=d.loket
 
 }
 
-function playAudio(n,l){
 
-let files=[]
 
-files.push("panggilan.mp3")
-files.push("nomorantrian.mp3")
+function numberToAudioSequence(n) {
 
-let angka=n.toString().split("")
+const suara = []
+suara.push('panggilan.mp3')
 
-angka.forEach(a=>{
-files.push(a+".mp3")
-})
+if (n === 0) {
+return suara
+}
 
-files.push("menujuloket.mp3")
-files.push("loket"+l.toLowerCase()+".mp3")
+suara.push('nomorantrian.mp3')
 
-playQueue(files)
+const map = ["kosong","satu","dua","tiga","empat","lima","enam","tujuh","delapan","sembilan","sepuluh","sebelas"]
+
+function playTwoDigits(num) {
+
+const result = []
+
+if (num === 0) return []
+
+if (num <= 11) {
+
+result.push(map[num] + ".mp3")
 
 }
 
-function playQueue(list,i=0){
+else if (num < 20) {
 
-if(i>=list.length)return
+result.push(map[num - 10] + ".mp3")
+result.push("belas.mp3")
 
-let audio=new Audio("suara/"+list[i])
+}
 
-audio.onended=()=>playQueue(list,i+1)
+else {
+
+const puluh = Math.floor(num / 10)
+const satuan = num % 10
+
+if (puluh === 1) {
+result.push("sepuluh.mp3")
+}
+else {
+result.push(map[puluh] + ".mp3")
+}
+
+result.push("puluh.mp3")
+
+if (satuan > 0) {
+result.push(map[satuan] + ".mp3")
+}
+
+}
+
+return result
+
+}
+
+
+
+if (n > 0) {
+
+const ribu = Math.floor(n / 1000)
+const ratus = Math.floor((n % 1000) / 100)
+const sisa = n % 100
+
+if (ribu > 0) {
+
+if (ribu === 1) {
+suara.push("seribu.mp3")
+}
+else {
+suara.push(map[ribu] + ".mp3")
+suara.push("ribu.mp3")
+}
+
+}
+
+if (ratus > 0) {
+
+if (ratus === 1) {
+suara.push("seratus.mp3")
+}
+else {
+suara.push(map[ratus] + ".mp3")
+suara.push("ratus.mp3")
+}
+
+}
+
+suara.push(...playTwoDigits(sisa))
+
+suara.push("menujuloket.mp3")
+
+}
+
+return suara
+
+}
+
+
+
+function playAudioQueue(files,index=0){
+
+if(index>=files.length)return
+
+const audio=new Audio('suara/'+files[index])
+
+audio.onended=()=>playAudioQueue(files,index+1)
 
 audio.play()
 
 }
+
+
+
+function playAntrian(n){
+
+const files = numberToAudioSequence(n)
+
+playAudioQueue(files)
+
+}
+
+
 
 setInterval(load,1000)
 
