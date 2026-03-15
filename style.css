@@ -1,0 +1,51 @@
+body {
+    background: #675234;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 350px;
+    padding: 20px;
+    margin: 50px auto;
+    background: #ffffbb;
+    box-shadow: 0px 0px 20px #000;
+    border: 2px solid #4d5368;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.counter {
+    width: 90%;
+    border-radius: 10px;
+    font-size: 24px;
+    color:#5c341c; 
+    padding: 10px;
+    text-align: center;   
+    border: 2px solid #764323;
+}
+
+.navigasi {
+    width: 49%;
+    border-radius: 3px;
+    padding: 10px;
+    background: #764323;
+    color: white;
+    font-size: 16px;
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.navigasi:hover {
+    background: #5c341c;
+}
+
+.bigNumber {
+    font-size: 90px;
+    margin-top: 20px;
+    color: #764323;
+}
+
+
