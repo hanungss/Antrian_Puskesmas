@@ -17,6 +17,18 @@ Sistem antrian berbasis web sederhana namun efektif yang dirancang untuk kebutuh
 - **JavaScript**: Fetch API (untuk komunikasi asinkron) dan Lucide Icons (untuk ikonografi).
 - **Storage**: Plain Text / JSON untuk penyimpanan data antrian.
 
+## 🚀 Panduan Pemasangan dengan Docker
+
+Dengan Docker, Anda tidak perlu menginstal XAMPP secara manual. Semua konfigurasi server sudah dibungkus dalam kontainer.
+
+### 1. Persiapan
+Pastikan PC tujuan sudah terinstal:
+* **Docker Desktop** (untuk Windows/Mac)
+* **Docker Engine & Compose** (untuk Linux)
+
+### 2. Struktur File Konfigurasi
+Pastikan folder proyek Anda memiliki file `Dockerfile` dan `docker-compose.yml`
+
 ## 📂 Struktur Folder
 
 ```text
@@ -28,14 +40,3 @@ Sistem antrian berbasis web sederhana namun efektif yang dirancang untuk kebutuh
 ├── antrian.json        # File cache untuk trigger panggilan suara otomatis
 └── suara/              # Folder berisi aset audio (.mp3) untuk panggilan
 
-## 🚀 Panduan Pemasangan dengan Docker
-
-Dengan Docker, Anda tidak perlu menginstal XAMPP secara manual. Semua konfigurasi server sudah dibungkus dalam kontainer.
-
-### 1. Persiapan
-Pastikan PC tujuan sudah terinstal:
-* **Docker Desktop** (untuk Windows/Mac)
-* **Docker Engine & Compose** (untuk Linux)
-
-### 2. Struktur File Konfigurasi
-Pastikan folder proyek Anda memiliki file `Dockerfile` dan `docker-compose.yml
