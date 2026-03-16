@@ -1,0 +1,9 @@
+services:
+  antrian-app:
+    build: .
+    container_name: antrian_puskesmas
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    restart: always
