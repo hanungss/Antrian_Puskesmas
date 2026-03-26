@@ -38,6 +38,17 @@
                 <span class="w-2 h-2 rounded-full bg-slate-700"></span>
             </div>
         </div>
+        
+        <div class="mb-6">
+    <label class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">Panggil Nomor Manual</label>
+    <div class="flex gap-2">
+        <input type="number" id="input-manual" placeholder="Contoh: 50" 
+            class="flex-1 bg-white border-2 border-slate-200 rounded-xl px-4 py-3 focus:border-blue-500 outline-none transition-all font-bold text-lg">
+        <button onclick="panggilManual()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 rounded-xl font-bold transition-all">
+            Panggil
+        </button>
+    </div>
+</div>
 
         <div class="grid grid-cols-1 gap-4">
             <button onclick="next()" class="btn-action bg-green-600 hover:bg-green-700 text-white rounded-2xl py-5 px-6 flex items-center justify-between shadow-lg shadow-green-200">
@@ -112,6 +123,23 @@
                 fetch("api.php?action=reset").then(() => { load(); });
             }
         }
+              
+              function panggilManual() {
+    const nomor = document.getElementById("input-manual").value;
+    if (nomor === "" || nomor < 0) {
+        alert("Masukkan nomor yang valid!");
+        return;
+    }
+
+    // Mengirim perintah panggil manual ke API
+    fetch(`api.php?action=manual&nomor=${nomor}&loket=B`)
+    .then(r => r.json())
+    .then(d => {
+        document.getElementById("input-manual").value = ""; // Kosongkan input
+        load(); // Refresh display nomor di operator
+        console.log("Memanggil nomor manual: " + d.nomor);
+    });
+}
 
         setInterval(load, 1000);
         load(); // Load pertama kali

@@ -125,6 +125,25 @@ if($action == "reset"){
     exit;
 }
 
+if($action == "manual"){
+    $nomor_input = $_GET['nomor'] ?? '0';
+    $loket = $_GET['loket'] ?? 'A';
+
+    // 1. Simpan ke antrian.txt (agar nomor utama berubah)
+    file_put_contents($file, $nomor_input."|".$loket);
+
+    // 2. Simpan ke antrian.json (agar dashboard mendeteksi dan bunyi)
+    $res = [
+        "nomor" => (string)$nomor_input,
+        "loket" => $loket,
+        "panggil" => time() // Timestamp agar dashboard langsung bunyi
+    ];
+    file_put_contents("antrian.json", json_encode($res));
+
+    echo json_encode($res);
+    exit;
+}
+
 echo json_encode([
     "nomor"=>$nomor,
     "loket"=>$loket
